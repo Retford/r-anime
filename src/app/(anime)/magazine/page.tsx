@@ -15,13 +15,13 @@ export default async function MagazinePage({ searchParams }: Props) {
   console.log(pagination);
 
   return (
-    <>
+    <div className='container m-auto'>
       <MagazineGrid data={data} />
       <PaginationWithLinks
         page={pagination.current_page}
         pageSize={pagination.items.per_page}
         totalCount={pagination.items.total}
       />
-    </>
+    </div>
   );
 }

@@ -13,13 +13,13 @@ export default async function AnimePage({ searchParams }: Props) {
   console.log(data);
 
   return (
-    <>
+    <main className='container m-auto'>
       <CardGrid data={data} tag='anime' />
       <PaginationWithLinks
         page={pagination.current_page}
         pageSize={pagination.items.per_page}
         totalCount={pagination.items.total}
       />
-    </>
+    </main>
   );
 }
