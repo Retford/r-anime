@@ -1,35 +1,25 @@
-import type { Animes } from '@/interfaces/animes.interface';
-import Image from 'next/image';
+import { CardGrid } from '@/components/cards/card-grid/CardGrid';
+import { PaginationWithLinks } from '@/components/ui/pagination-with-links/pagination-with-links';
+import { GetDataAnimes } from '@/fetch/FetchData';
 
-export default async function AnimePage() {
-  //   try {
-  const resp = await fetch('https://api.jikan.moe/v4/anime');
+interface Props {
+  searchParams: Promise<{ page?: string }>;
+}
 
-  const { data } = (await resp.json()) as Animes;
-  // console.log(data);
-  // return data;
-  //   } catch (error) {
-  // console.log(error);
-  // return {
-  //   ok: false,
-  //   message: 'No se pudo cargar los animes',
-  // };
-  //   }
+export default async function AnimePage({ searchParams }: Props) {
+  const pages = (await searchParams).page;
+  const page = pages ? parseInt(pages) : 1;
+  const { data, pagination } = await GetDataAnimes(page);
+  console.log(data);
 
   return (
-    <div className='grid grid-cols-6'>
-      {data.map((anime) => (
-        <div key={anime.mal_id}>
-          <h2>{anime.title}</h2>
-          <span>{anime.rank}</span>
-          <Image
-            src={anime.images.jpg.image_url}
-            alt={anime.title}
-            width={200}
-            height={200}
-          />
-        </div>
-      ))}
-    </div>
+    <>
+      <CardGrid data={data} tag='anime' />
+      <PaginationWithLinks
+        page={pagination.current_page}
+        pageSize={pagination.items.per_page}
+        totalCount={pagination.items.total}
+      />
+    </>
   );
 }

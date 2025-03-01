@@ -6,18 +6,18 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { GetDataAnimesById } from '@/fetch/FetchDataById';
+import { GetDataMangasById } from '@/fetch/FetchDataById';
 
 import Image from 'next/image';
 
 interface Props {
-  params: Promise<{ animeId: string }>;
+  params: Promise<{ mangaId: string }>;
 }
 
-export default async function AnimeById({ params }: Props) {
-  const { animeId } = await params;
+export default async function MangaById({ params }: Props) {
+  const { mangaId } = await params;
 
-  const { data } = await GetDataAnimesById(animeId);
+  const { data } = await GetDataMangasById(mangaId);
 
   console.log(data);
 
