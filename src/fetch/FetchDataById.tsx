@@ -1,4 +1,4 @@
-import { ItemByIDResponse } from '@/interfaces/comicById.interface';
+import type { ItemByIDResponse } from '@/interfaces/comicById.interface';
 
 export const GetDataById = async <T,>(
   type: 'anime' | 'manga',
