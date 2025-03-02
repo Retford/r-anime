@@ -1,7 +1,7 @@
-import { inter } from '@/config/font';
 import type { Metadata } from 'next';
 import './globals.css';
 import { ThemeProvider } from '@/store/theme/theme-provider';
+import { poppins } from '@/config/font';
 
 export const metadata: Metadata = {
   title: 'R-Anime',
@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='es' suppressHydrationWarning>
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${poppins.className} antialiased`}>
         <ThemeProvider
           attribute='class'
           defaultTheme='dark'

@@ -19,8 +19,6 @@ export default async function AnimeById({ params }: Props) {
 
   const { data } = await GetDataAnimesById(animeId);
 
-  console.log(data);
-
   return (
     <Card className='w-[350px]'>
       <CardHeader>

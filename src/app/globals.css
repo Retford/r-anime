@@ -122,13 +122,3 @@
     @apply bg-background text-foreground;
   }
 }
-
-.mask-gradient {
-  -webkit-mask-image: linear-gradient(black 80%, transparent);
-  mask-image: linear-gradient(black 80%, transparent);
-}
-
-.mask-fade {
-  -webkit-mask-image: radial-gradient(circle, black 60%, transparent 100%);
-  mask-image: radial-gradient(circle, black 60%, transparent 100%);
-}

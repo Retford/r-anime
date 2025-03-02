@@ -64,7 +64,7 @@ export const Header = () => {
               alt='Logo'
               width={150}
               height={150}
-              className='w-12 h-12 md:w-24 md:h-18 object-cover mask-fade'
+              className='w-12 h-12 md:w-24 md:h-18 object-cover'
             />
           </Link>
           <ul className='sm:flex gap-6 items-center hidden sm:col-span-2'>

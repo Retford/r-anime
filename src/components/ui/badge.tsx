@@ -18,7 +18,7 @@ const badgeVariants = cva(
         outline:
           "text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground",
           personality:
-          "border-transparent py-1 px-4 absolute top-3 left-3 z-10 bg-red-600 text-white select-none",
+          "border-transparent py-1 px-4 bg-red-600 text-white select-none",
       },
     },
     defaultVariants: {
