@@ -45,7 +45,7 @@ export const CardGridItem = ({ comic, tag }: Props) => {
               <Badge className='bg-sky-500 text-white'>{comic.type}</Badge>
             )}
             {comic.episodes && (
-              <Badge className='bg-red-600 select-none text-white'>
+              <Badge className='bg-black select-none text-white'>
                 Eps&#32;{comic.episodes}
               </Badge>
             )}
@@ -54,7 +54,8 @@ export const CardGridItem = ({ comic, tag }: Props) => {
                 <Star /> {comic.score}
               </Badge>
             )}
-            <Badge className='text-white bg-rose-600'>
+            <Badge className='text-white bg-teal-600'>
+              {/* <Badge variant='outline' className='text-white border-white'> */}
               <Heart /> {comic.favorites}
             </Badge>
           </div>
