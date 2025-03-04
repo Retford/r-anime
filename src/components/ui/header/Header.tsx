@@ -90,7 +90,12 @@ export const Header = () => {
                       className='object-cover aspect-square'
                     />
                   </Link>
-                  <Link href={`/anime/${item.mal_id}`}>{item.title}</Link>
+                  <Link
+                    href={`/anime/${item.mal_id}`}
+                    className='text-pretty w-full line-clamp-2'
+                  >
+                    {item.title}
+                  </Link>
                 </CommandItem>
               ))
             ) : (
