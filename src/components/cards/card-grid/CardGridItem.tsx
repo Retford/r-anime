@@ -1,8 +1,8 @@
 'use client';
 
-import { formatApi } from '@/app/helpers/formatApi';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
+import { formatApi } from '@/helpers/formatApi';
 import { Data } from '@/interfaces/comic.interface';
 import { Heart, Star } from 'lucide-react';
 import Link from 'next/link';
@@ -60,20 +60,6 @@ export const CardGridItem = ({ comic, tag }: Props) => {
             </Badge>
           </div>
           <p className='line-clamp-7 text-sm'>{comic.synopsis}</p>
-          {/* <Button
-            variant='outline'
-            asChild
-            size='icon'
-            className='flex justify-center items-center w-3/4 px-8 mt-2 bg-gray-400 border border-transparent hover:bg-gray-800 hover:duration-500 transition-colors hover:transition-colors duration-500'
-          >
-            <Link
-              href={`/${tag}/${comic.mal_id}`}
-              className='group-hover:text-white flex items-center gap-1'
-            >
-              Ver más
-              <ChevronRight className='group-hover:text-white transition-colors duration-500' />
-            </Link>
-          </Button> */}
         </div>
       </Card>
     </Link>
