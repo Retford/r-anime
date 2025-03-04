@@ -3,6 +3,13 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+
+import type { Data } from '@/interfaces/comic.interface';
+import { Button } from '../button';
+
+import { FetchSearchQuery } from '@/fetch/FetchSearchQuery';
+import { SearchIcon } from 'lucide-react';
+
 import {
   Command,
   CommandDialog,
@@ -12,12 +19,8 @@ import {
   CommandList,
   CommandShortcut,
 } from '../command';
-import { SearchIcon } from 'lucide-react';
-import { Button } from '../button';
 import { HeaderMobile } from './HeaderMobile';
 import { ToggleTheme } from './ToggleTheme';
-import { FetchSearchQuery } from '@/fetch/FetchSearchQuery';
-import { Data } from '@/interfaces/comic.interface';
 
 export const Header = () => {
   const [open, setOpen] = useState(false);
@@ -133,7 +136,13 @@ export const Header = () => {
               <Link href='/anime'>Anime</Link>
             </li>
             <li>
+              <Link href='/top?type=anime'>Top Anime</Link>
+            </li>
+            <li>
               <Link href='/manga'>Manga</Link>
+            </li>
+            <li>
+              <Link href='/top?type=manga'>Top Manga</Link>
             </li>
             <li>
               <Link href='/magazine'>Magazine</Link>

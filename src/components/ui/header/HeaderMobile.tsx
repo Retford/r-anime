@@ -30,7 +30,17 @@ export const HeaderMobile = () => {
                 </li>
                 <li>
                   <SheetClose asChild>
+                    <Link href='/top?type=anime'>Top Anime</Link>
+                  </SheetClose>
+                </li>
+                <li>
+                  <SheetClose asChild>
                     <Link href='manga'>Manga</Link>
+                  </SheetClose>
+                </li>
+                <li>
+                  <SheetClose asChild>
+                    <Link href='manga'>Top Manga</Link>
                   </SheetClose>
                 </li>
                 <li>
