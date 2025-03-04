@@ -8,7 +8,7 @@ import type { Data } from '@/interfaces/comic.interface';
 import { Button } from '../button';
 
 import { FetchSearchQuery } from '@/fetch/FetchSearchQuery';
-import { SearchIcon } from 'lucide-react';
+import { ChevronsRight, SearchIcon } from 'lucide-react';
 
 import {
   Command,
@@ -69,6 +69,20 @@ export const Header = () => {
             value={query}
             onValueChange={setQuery}
           />
+          {results.length > 0 && (
+            <Link href={`/search?q=${query}`}>
+              <div
+                className='text-center py-2 flex justify-center items-center gap-1 sm:hidden'
+                onClick={() => {
+                  setOpen(false);
+                  setQuery('');
+                }}
+              >
+                View All Results
+                <ChevronsRight />
+              </div>
+            </Link>
+          )}
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
             {loading ? (
@@ -108,13 +122,14 @@ export const Header = () => {
           {results.length > 0 && (
             <Link href={`/search?q=${query}`}>
               <div
-                className='text-center py-2'
+                className='text-center py-2 hidden sm:flex sm:justify-center sm:items-center sm:gap-1'
                 onClick={() => {
                   setOpen(false);
                   setQuery('');
                 }}
               >
                 View All Results
+                <ChevronsRight />
               </div>
             </Link>
           )}
