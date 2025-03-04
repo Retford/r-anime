@@ -22,11 +22,11 @@ import { DataResults } from '@/interfaces/resultsSearch';
 export const Header = () => {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
-  const [results, setResults] = useState<DataResults[]>([]);
   const [loading, setLoading] = useState(false);
+  const [results, setResults] = useState<DataResults[]>([]);
 
   useEffect(() => {
-    if (!query) return setResults([]);
+    if (!query.trim()) return setResults([]);
 
     const fetchData = async () => {
       setLoading(true);
@@ -50,8 +50,6 @@ export const Header = () => {
     document.addEventListener('keydown', down);
     return () => document.removeEventListener('keydown', down);
   }, []);
-
-  console.log(query);
 
   return (
     <>
