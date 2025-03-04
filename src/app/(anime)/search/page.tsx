@@ -1,7 +1,6 @@
-import { CardGrid } from '@/components/cards/card-grid/CardGrid';
-import { PaginationWithLinks } from '@/components/ui/pagination-with-links/pagination-with-links';
-import { FetchSearchQuery } from '@/fetch/FetchSearchQuery';
 import { Metadata } from 'next';
+import { SearchContent } from './ui/SearchContent';
+import { Separator } from '@/components/ui/separator';
 
 interface Props {
   searchParams: Promise<{ q: string; page?: string }>;
@@ -24,15 +23,13 @@ export default async function SearchPage({ searchParams }: Props) {
   const page = pages ? parseInt(pages) : 1;
   const { q } = await searchParams;
 
-  const { data, pagination } = await FetchSearchQuery(q, page);
   return (
     <div className='container m-auto pt-2 pb-12'>
-      <CardGrid data={data} tag='anime' />
-      <PaginationWithLinks
-        page={pagination.current_page}
-        pageSize={pagination.items.per_page}
-        totalCount={pagination.items.total}
-      />
+      <h2 className='text-base md:text-lg lg:text-xl xl:text-3xl py-4 pl-4'>
+        Search results for &quot;{q.toUpperCase()}&quot;
+      </h2>
+      <Separator className='mb-8' />
+      <SearchContent page={page} q={q} />
     </div>
   );
 }
