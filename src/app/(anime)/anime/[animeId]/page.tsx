@@ -7,11 +7,28 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { GetDataAnimesById } from '@/fetch/FetchDataById';
+import { Metadata } from 'next';
 
 import Image from 'next/image';
 
 interface Props {
   params: Promise<{ animeId: string }>;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { animeId } = await params;
+
+  const { data } = await GetDataAnimesById(animeId);
+
+  return {
+    title: data.title,
+    description: data.synopsis,
+    openGraph: {
+      title: data.title,
+      description: data.synopsis,
+      images: [data.images.webp.large_image_url],
+    },
+  };
 }
 
 export default async function AnimeById({ params }: Props) {

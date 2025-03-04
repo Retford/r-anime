@@ -17,13 +17,13 @@ import { Button } from '../button';
 import { HeaderMobile } from './HeaderMobile';
 import { ToggleTheme } from './ToggleTheme';
 import { FetchSearchQuery } from '@/fetch/FetchSearchQuery';
-import { DataResults } from '@/interfaces/resultsSearch';
+import { Data } from '@/interfaces/comic.interface';
 
 export const Header = () => {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
-  const [results, setResults] = useState<DataResults[]>([]);
+  const [results, setResults] = useState<Data[]>([]);
 
   useEffect(() => {
     if (!query.trim()) return setResults([]);
@@ -104,7 +104,15 @@ export const Header = () => {
           </CommandList>
           {results.length > 0 && (
             <Link href={`/search?q=${query}`}>
-              <div className='text-center py-2'>View All Results</div>
+              <div
+                className='text-center py-2'
+                onClick={() => {
+                  setOpen(false);
+                  setQuery('');
+                }}
+              >
+                View All Results
+              </div>
             </Link>
           )}
         </Command>
