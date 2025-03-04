@@ -6,7 +6,9 @@ export const GetData = async <T>(
   page: number = 1
 ): Promise<T> => {
   try {
-    const resp = await fetch(`https://api.jikan.moe/v4/${type}?page=${page}`);
+    const resp = await fetch(
+      `https://api.jikan.moe/v4/${type}?page=${page}&limit=24`
+    );
     if (!resp.ok) {
       throw new Error(`Error fetching ${type} data: ${resp.statusText}`);
     }

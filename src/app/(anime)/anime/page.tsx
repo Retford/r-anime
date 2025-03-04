@@ -1,12 +1,7 @@
-import { Hero } from '@/components/animes/ui/Hero';
-import { CardGrid } from '@/components/cards/card-grid/CardGrid';
-import { PaginationWithLinks } from '@/components/ui/pagination-with-links/pagination-with-links';
-import { GetDataAnimes } from '@/fetch/FetchData';
 import { Metadata } from 'next';
 
-interface Props {
-  searchParams: Promise<{ page?: string }>;
-}
+import { Hero } from '@/components/animes/ui/Hero';
+import { AnimeContent } from './ui/AnimeContent';
 
 export const metadata: Metadata = {
   title: 'Anime',
@@ -14,21 +9,19 @@ export const metadata: Metadata = {
     'Explore our anime collection with detailed profiles, synopsis, genres and seasons. Find your next favorite anime with ease.',
 };
 
+interface Props {
+  searchParams: Promise<{ page?: string }>;
+}
+
 export default async function AnimePage({ searchParams }: Props) {
-  const pages = (await searchParams).page;
-  const page = pages ? parseInt(pages) : 1;
-  const { data, pagination } = await GetDataAnimes(page);
+  const params = await searchParams;
+  const page = params.page ? parseInt(params.page) : 1;
 
   return (
     <>
       <Hero />
       <div className='container m-auto pt-2 pb-12'>
-        <CardGrid data={data} tag='anime' />
-        <PaginationWithLinks
-          page={pagination.current_page}
-          pageSize={pagination.items.per_page}
-          totalCount={pagination.items.total}
-        />
+        <AnimeContent page={page} />
       </div>
     </>
   );
