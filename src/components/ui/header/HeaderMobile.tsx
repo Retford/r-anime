@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { Button } from '../button';
 import {
@@ -35,7 +37,7 @@ export const HeaderMobile = () => {
                 </li>
                 <li>
                   <SheetClose asChild>
-                    <Link href='magazine'>Revistas</Link>
+                    <Link href='magazine'>Magazine</Link>
                   </SheetClose>
                 </li>
               </ul>

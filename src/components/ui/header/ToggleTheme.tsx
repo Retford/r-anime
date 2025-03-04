@@ -12,7 +12,11 @@ export const ToggleTheme = () => {
   };
 
   return (
-    <Toggle variant='outline' onClick={onToggle} className='hidden sm:flex'>
+    <Toggle
+      variant='outline'
+      onClick={onToggle}
+      className='hidden sm:flex cursor-pointer'
+    >
       {resolvedTheme === 'light' ? <Sun /> : <Moon />}
     </Toggle>
   );

@@ -74,36 +74,40 @@ export default function SlideShow() {
       speed={800}
       autoplay={{ delay: 5000, disableOnInteraction: false }}
       loop={true}
-      className='h-[600px]'
+      className='w-full h-96 lg:h-[600px]'
     >
       {animeData.map((anime) => (
         <SwiperSlide key={anime.id}>
-          <div className='w-screen flex h-[600px] justify-center items-center'>
-            <div className='relative h-full grid grid-cols-2 w-2/3'>
+          <div className='w-screen flex h-96 lg:h-[600px] lg:w-full justify-center items-center'>
+            <div className='relative h-full grid grid-cols-1 sm:gap-1 md:gap-0 sm:grid-cols-2 w-3/4 sm:w-full md:w-[85%] sm:p-2 2xl:w-2/3 lg:w-full'>
               <Image
                 src={anime.image || '/placeholder.svg'}
                 alt={anime.title}
-                className='top-1/2 right-0 -translate-y-1/2 absolute object-scale-down w-[640px] h-[512px]'
+                className='top-1/2 right-0 -translate-y-1/2 absolute object-scale-down sm:w-80 sm:h-auto lg:w-[600px] xl:w-[640px] xl:h-[512px] hidden sm:flex'
                 width={1200}
                 height={500}
                 priority
               />
-              <div className='flex flex-col justify-center items-start gap-8 h-full w-full p-16 dark:text-white'>
+              <div className='flex flex-col justify-center items-start gap-2 lg:gap-8 h-full w-full py-2 lg:p-16 dark:text-white'>
                 <div className='flex flex-col gap-2'>
-                  <h2 className={`text-5xl ${titleFont.className} antialiased`}>
+                  <h2
+                    className={`text-sm lg:text-5xl ${titleFont.className} antialiased`}
+                  >
                     {anime.title}
                   </h2>
-                  <span className='text-xl'>{anime.originalTitle}</span>
+                  <span className='text-sm lg:text-xl'>
+                    {anime.originalTitle}
+                  </span>
                 </div>
                 <div>
-                  <p className='text-base line-clamp-4 text-pretty'>
+                  <p className='text-sm lg:text-base line-clamp-4 text-pretty'>
                     {anime.description}
                   </p>
                   <Button asChild variant='link' className='text-red-500 p-0'>
                     <Link href={`anime/${anime.id}`}>Read More</Link>
                   </Button>
                 </div>
-                <div className='flex gap-4'>
+                <div className='flex flex-wrap gap-0.5 lg:gap-4'>
                   <Badge variant='outline' className='p-2 select-none'>
                     <Star /> {anime.rating}
                   </Badge>
