@@ -1,13 +1,14 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Loader2 } from 'lucide-react';
 
 import { GetDataMangas } from '@/fetch/FetchData';
 import type { Data } from '@/interfaces/comic.interface';
 import type { Pagination } from '@/interfaces/common.interface';
 
 import { CardGrid } from '@/components/cards/card-grid/CardGrid';
+import { CardSkeleton } from '@/components/comics/skeleton/CardSkeleton';
+
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links/pagination-with-links';
 
 interface Props {
@@ -32,11 +33,7 @@ export const MangaContent = ({ page }: Props) => {
 
   return (
     <>
-      {loading ? (
-        <Loader2 className='animate-spin mx-auto' />
-      ) : (
-        <CardGrid data={data} tag='anime' />
-      )}
+      {loading ? <CardSkeleton /> : <CardGrid data={data} tag='anime' />}
       {pagination && (
         <PaginationWithLinks
           page={pagination.current_page}
