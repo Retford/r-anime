@@ -68,6 +68,13 @@ export const Header = () => {
             placeholder='Type a command or search...'
             value={query}
             onValueChange={setQuery}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && query.trim()) {
+                window.location.href = `/search?q=${query}`;
+                setOpen(false);
+                setQuery('');
+              }
+            }}
           />
           {results.length > 0 && (
             <Link href={`/search?q=${query}`}>

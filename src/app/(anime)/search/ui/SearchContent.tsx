@@ -10,6 +10,7 @@ import { CardGrid } from '@/components/cards/card-grid/CardGrid';
 
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links/pagination-with-links';
 import { FetchSearchQuery } from '@/fetch/FetchSearchQuery';
+import { NoResultsFound } from '@/components/search/no-results-found/NoResultsFound';
 
 interface Props {
   page: number;
@@ -34,8 +35,14 @@ export const SearchContent = ({ page, q }: Props) => {
 
   return (
     <>
-      {loading ? <CardSkeleton /> : <CardGrid data={data} tag='anime' />}
-      {pagination && (
+      {loading ? (
+        <CardSkeleton />
+      ) : data.length === 0 ? (
+        <NoResultsFound />
+      ) : (
+        <CardGrid data={data} tag='anime' />
+      )}
+      {pagination && data.length !== 0 && (
         <PaginationWithLinks
           page={pagination.current_page}
           pageSize={pagination.items.per_page}

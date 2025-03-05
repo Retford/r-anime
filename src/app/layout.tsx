@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { ThemeProvider } from '@/store/theme/theme-provider';
 import { poppins } from '@/config/font';
+import { Header } from '@/components/ui/header/Header';
+import { Footer } from '@/components/ui/footer/Footer';
 
 export const metadata: Metadata = {
   title: {
@@ -26,7 +28,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <div className='min-h-screen flex flex-col'>
+            <Header />
+            <main className='flex-1'>{children}</main>
+            <Footer />
+          </div>
         </ThemeProvider>
       </body>
     </html>

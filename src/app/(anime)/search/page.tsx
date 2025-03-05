@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { SearchContent } from './ui/SearchContent';
 import { Separator } from '@/components/ui/separator';
+import { notFound } from 'next/navigation';
 
 interface Props {
   searchParams: Promise<{ q: string; page?: string }>;
@@ -22,6 +23,10 @@ export default async function SearchPage({ searchParams }: Props) {
   const pages = (await searchParams).page;
   const page = pages ? parseInt(pages) : 1;
   const { q } = await searchParams;
+
+  if (!q) {
+    notFound();
+  }
 
   return (
     <div className='container m-auto pt-2 pb-12'>
