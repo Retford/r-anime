@@ -21,9 +21,10 @@ import {
 } from '../command';
 import { HeaderMobile } from './HeaderMobile';
 import { ToggleTheme } from './ToggleTheme';
+import { useSearchUIStore } from '@/store/ui/ui-search-store';
 
 export const Header = () => {
-  const [open, setOpen] = useState(false);
+  const { isSearchOpen, openSearchMenu, closeSearchMenu } = useSearchUIStore();
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<Data[]>([]);
@@ -46,20 +47,28 @@ export const Header = () => {
     const down = (e: KeyboardEvent) => {
       if (e.key === 'j' && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
-        setOpen((open) => !open);
+        if (isSearchOpen) {
+          closeSearchMenu();
+        } else {
+          openSearchMenu();
+        }
       }
     };
 
     document.addEventListener('keydown', down);
     return () => document.removeEventListener('keydown', down);
-  }, []);
+  }, [isSearchOpen, openSearchMenu, closeSearchMenu]);
 
   return (
     <>
       <CommandDialog
-        open={open}
+        open={isSearchOpen}
         onOpenChange={(isOpen) => {
-          setOpen(isOpen);
+          if (isOpen) {
+            openSearchMenu();
+          } else {
+            closeSearchMenu();
+          }
           if (!isOpen) setQuery('');
         }}
       >
@@ -71,7 +80,7 @@ export const Header = () => {
             onKeyDown={(e) => {
               if (e.key === 'Enter' && query.trim()) {
                 window.location.href = `/search?q=${query}`;
-                setOpen(false);
+                closeSearchMenu();
                 setQuery('');
               }
             }}
@@ -81,7 +90,7 @@ export const Header = () => {
               <div
                 className='text-center py-2 flex justify-center items-center gap-1 sm:hidden'
                 onClick={() => {
-                  setOpen(false);
+                  closeSearchMenu();
                   setQuery('');
                 }}
               >
@@ -99,7 +108,7 @@ export const Header = () => {
                 <CommandItem
                   key={item.mal_id}
                   onSelect={() => {
-                    setOpen(false);
+                    closeSearchMenu();
                     setQuery('');
                   }}
                   value={item.title}
@@ -131,7 +140,7 @@ export const Header = () => {
               <div
                 className='text-center py-2 hidden sm:flex sm:justify-center sm:items-center sm:gap-1'
                 onClick={() => {
-                  setOpen(false);
+                  closeSearchMenu();
                   setQuery('');
                 }}
               >
@@ -174,7 +183,7 @@ export const Header = () => {
             <Button
               variant='outline'
               className='cursor-pointer w-full'
-              onClick={() => setOpen(!open)}
+              onClick={isSearchOpen ? closeSearchMenu : openSearchMenu}
             >
               <SearchIcon className='size-4 shrink-0 opacity-50' />
               <span className=''>Search</span>

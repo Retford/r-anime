@@ -4,9 +4,11 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Search } from 'lucide-react';
 import Image from 'next/image';
+import { useSearchUIStore } from '@/store/ui/ui-search-store';
 
 export const NoResultsFound = () => {
   const router = useRouter();
+  const openSearchMenu = useSearchUIStore((state) => state.openSearchMenu);
 
   return (
     <div className='min-h-[80vh] flex flex-col items-center justify-center bg-gray-50 dark:bg-transparent text-center px-4 relative overflow-hidden'>
@@ -36,16 +38,18 @@ export const NoResultsFound = () => {
           <Button
             onClick={() => router.back()}
             variant='outline'
-            className='border-2 border-gray-800 dark:border-white text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
+            className='border-2 cursor-pointer border-gray-800 dark:border-white text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
           >
             <ArrowLeft className='mr-2 h-4 w-4' /> Go back
           </Button>
 
           <Button
             variant='default'
-            className='bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-700 hover:to-pink-700 text-white'
+            onClick={openSearchMenu}
+            className='bg-gradient-to-r cursor-pointer from-red-600 to-pink-600 hover:from-red-700 hover:to-pink-700 text-white'
           >
-            <Search className='mr-2 h-4 w-4' /> Search another anime
+            <Search className='mr-2 h-4 w-4' />
+            Search another anime
           </Button>
         </div>
       </div>
