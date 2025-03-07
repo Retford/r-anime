@@ -15,13 +15,13 @@ import {
   CommandDialog,
   CommandEmpty,
   CommandInput,
-  CommandItem,
   CommandList,
   CommandShortcut,
 } from '../command';
 import { HeaderMobile } from './HeaderMobile';
 import { ToggleTheme } from './ToggleTheme';
 import { useSearchUIStore } from '@/store/ui/ui-search-store';
+import { Loader } from '../loader/Loader';
 
 export const Header = () => {
   const { isSearchOpen, openSearchMenu, closeSearchMenu } = useSearchUIStore();
@@ -88,7 +88,7 @@ export const Header = () => {
           {results.length > 0 && (
             <Link href={`/search?q=${query}`}>
               <div
-                className='text-center py-2 flex justify-center items-center gap-1 sm:hidden'
+                className='text-center py-2 flex justify-center items-center gap-1 sm:hidden border-b-border border-b'
                 onClick={() => {
                   closeSearchMenu();
                   setQuery('');
@@ -100,21 +100,22 @@ export const Header = () => {
             </Link>
           )}
           <CommandList>
-            <CommandEmpty>No results found.</CommandEmpty>
             {loading ? (
-              <CommandItem disabled>Loading...</CommandItem>
+              <Loader />
             ) : results.length > 0 ? (
-              results.map((item) => (
-                <CommandItem
-                  key={item.mal_id}
-                  onSelect={() => {
-                    closeSearchMenu();
-                    setQuery('');
-                  }}
-                  value={item.title}
+              results.map((item, index) => (
+                <Link
+                  key={`${item.mal_id}-${index}`}
+                  href={`/anime/${item.mal_id}`}
                   className='cursor-pointer'
                 >
-                  <Link href={`/anime/${item.mal_id}`}>
+                  <div
+                    className='relative flex items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none hover:text-white hover:bg-red-500 duration-500 transition-colors'
+                    onClick={() => {
+                      closeSearchMenu();
+                      setQuery('');
+                    }}
+                  >
                     <Image
                       src={item.images.webp.image_url}
                       alt={item.title}
@@ -122,23 +123,20 @@ export const Header = () => {
                       height={50}
                       className='object-cover aspect-square'
                     />
-                  </Link>
-                  <Link
-                    href={`/anime/${item.mal_id}`}
-                    className='text-pretty w-full line-clamp-2'
-                  >
-                    {item.title}
-                  </Link>
-                </CommandItem>
+                    <span className='text-pretty w-full line-clamp-2'>
+                      {item.title}
+                    </span>
+                  </div>
+                </Link>
               ))
             ) : (
-              ''
+              <CommandEmpty>No results found.</CommandEmpty>
             )}
           </CommandList>
           {results.length > 0 && (
             <Link href={`/search?q=${query}`}>
               <div
-                className='text-center py-2 hidden sm:flex sm:justify-center sm:items-center sm:gap-1'
+                className='text-center py-2 hidden sm:flex sm:justify-center sm:items-center sm:gap-1 border-t-border border-t dark:hover:bg-white dark:hover:text-black hover:transition-colors hover:duration-500 transition-colors duration-500 hover:bg-black hover:text-white'
                 onClick={() => {
                   closeSearchMenu();
                   setQuery('');
