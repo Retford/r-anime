@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { GetDataAnimesById } from '@/fetch/FetchDataById';
+import { getAnimeById } from '@/services/anime';
 import { Metadata } from 'next';
 
 import Image from 'next/image';
@@ -18,7 +18,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { animeId } = await params;
 
-  const { data } = await GetDataAnimesById(animeId);
+  const { data } = await getAnimeById(animeId);
 
   return {
     title: data.title,
@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function AnimeById({ params }: Props) {
   const { animeId } = await params;
 
-  const { data } = await GetDataAnimesById(animeId);
+  const { data } = await getAnimeById(animeId);
 
   return (
     <Card className='w-[350px]'>

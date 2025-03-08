@@ -1,9 +1,10 @@
-import { Data } from '@/interfaces/comic.interface';
+import type { Data } from '@/interfaces/comic.interface';
+import type { ComicType } from '@/interfaces/api-types';
 import { CardGridItem } from './CardGridItem';
 
 interface Props {
   data: Data[];
-  tag: string;
+  tag: ComicType;
 }
 
 export const CardGrid = ({ data, tag }: Props) => {

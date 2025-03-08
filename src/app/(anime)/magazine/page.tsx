@@ -1,6 +1,6 @@
 import { MagazineGrid } from '@/components/magazines/magazine-grid/MagazineGrid';
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links/pagination-with-links';
-import { GetDataMagazines } from '@/fetch/FetchData';
+import { getMagazines } from '@/services/magazine';
 import { Metadata } from 'next';
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const metadata: Metadata = {
-  title: 'Anime',
+  title: 'Magazines',
   description:
     'Discover a collection of anime magazines with detailed information, featured issues and exclusive content about your favorite series.',
 };
@@ -16,10 +16,7 @@ export const metadata: Metadata = {
 export default async function MagazinePage({ searchParams }: Props) {
   const pages = (await searchParams).page;
   const page = pages ? parseInt(pages) : 1;
-  const { data, pagination } = await GetDataMagazines(page);
-
-  console.log(data);
-  console.log(pagination);
+  const { data, pagination } = await getMagazines(page);
 
   return (
     <div className='container m-auto'>

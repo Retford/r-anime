@@ -7,7 +7,7 @@ import Link from 'next/link';
 import type { Data } from '@/interfaces/comic.interface';
 import { Button } from '../button';
 
-import { FetchSearchQuery } from '@/fetch/FetchSearchQuery';
+// import { FetchSearchQuery } from '@/fetch/FetchSearchQuery';
 import { ChevronsRight, SearchIcon } from 'lucide-react';
 
 import {
@@ -22,6 +22,7 @@ import { HeaderMobile } from './HeaderMobile';
 import { ToggleTheme } from './ToggleTheme';
 import { useSearchUIStore } from '@/store/ui/ui-search-store';
 import { Loader } from '../loader/Loader';
+import { getSearch } from '@/services/search';
 
 export const Header = () => {
   const { isSearchOpen, openSearchMenu, closeSearchMenu } = useSearchUIStore();
@@ -34,7 +35,7 @@ export const Header = () => {
 
     const fetchData = async () => {
       setLoading(true);
-      const { data } = await FetchSearchQuery(query);
+      const { data } = await getSearch(query);
       setResults(data);
       setLoading(false);
     };
@@ -158,6 +159,7 @@ export const Header = () => {
               width={150}
               height={150}
               className='w-12 h-12 md:w-24 md:h-18 object-cover'
+              priority
             />
           </Link>
           <ul className='sm:flex gap-6 items-center hidden sm:col-span-2'>

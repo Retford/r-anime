@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 
-import { GetDataAnimes } from '@/fetch/FetchData';
 import type { Data } from '@/interfaces/comic.interface';
 import type { Pagination } from '@/interfaces/common.interface';
 
@@ -10,6 +9,7 @@ import { CardGrid } from '@/components/cards/card-grid/CardGrid';
 import { CardSkeleton } from '@/components/comics/skeleton/CardSkeleton';
 
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links/pagination-with-links';
+import { getAnimes } from '@/services/anime';
 
 interface Props {
   page: number;
@@ -23,7 +23,7 @@ export const AnimeContent = ({ page }: Props) => {
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
-      const { data, pagination } = await GetDataAnimes(page);
+      const { data, pagination } = await getAnimes(page);
       setData(data);
       setPagination(pagination);
       setLoading(false);

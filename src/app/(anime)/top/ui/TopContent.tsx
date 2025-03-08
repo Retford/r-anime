@@ -4,16 +4,17 @@ import { useEffect, useState } from 'react';
 
 import type { Data } from '@/interfaces/comic.interface';
 import type { Pagination } from '@/interfaces/common.interface';
+import type { ComicType } from '@/interfaces/api-types';
 
 import { CardGrid } from '@/components/cards/card-grid/CardGrid';
 import { CardSkeleton } from '@/components/comics/skeleton/CardSkeleton';
 
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links/pagination-with-links';
-import { FetchDataTopAnime } from '@/fetch/FetchDataTopAnime';
+import { getTopComics } from '@/services/comics';
 
 interface Props {
   page: number;
-  type: 'anime' | 'manga';
+  type: ComicType;
 }
 
 export const TopContent = ({ page, type }: Props) => {
@@ -24,7 +25,7 @@ export const TopContent = ({ page, type }: Props) => {
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
-      const { data, pagination } = await FetchDataTopAnime(type, page);
+      const { data, pagination } = await getTopComics(type, page);
       setData(data);
       setPagination(pagination);
       setLoading(false);

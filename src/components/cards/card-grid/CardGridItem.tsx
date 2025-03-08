@@ -3,13 +3,15 @@
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { formatApi } from '@/helpers/formatApi';
-import { Data } from '@/interfaces/comic.interface';
 import { Heart, Star } from 'lucide-react';
 import Link from 'next/link';
 
+import type { Data } from '@/interfaces/comic.interface';
+import type { ComicType } from '@/interfaces/api-types';
+
 interface Props {
   comic: Data;
-  tag: string;
+  tag: ComicType;
 }
 
 export const CardGridItem = ({ comic, tag }: Props) => {
