@@ -34,7 +34,7 @@ export default async function SearchPage({ searchParams }: Props) {
         Search results for &quot;{q.toUpperCase()}&quot;
       </h2>
       <Separator className='mb-8' />
-      <SearchContent page={page} q={q} />
+      <SearchContent page={page} query={q} />
     </div>
   );
 }

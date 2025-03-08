@@ -1,16 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
-import type { Data } from '@/interfaces/comic.interface';
-import type { Pagination } from '@/interfaces/common.interface';
 import type { ComicType } from '@/interfaces/api-types';
 
 import { CardGrid } from '@/components/cards/card-grid/CardGrid';
 import { CardSkeleton } from '@/components/comics/skeleton/CardSkeleton';
 
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links/pagination-with-links';
-import { getTopComics } from '@/services/comics';
+import { useTopComics } from '@/hooks/useTopComics';
 
 interface Props {
   page: number;
@@ -18,24 +14,21 @@ interface Props {
 }
 
 export const TopContent = ({ page, type }: Props) => {
-  const [loading, setLoading] = useState(true);
-  const [pagination, setPagination] = useState<Pagination | null>(null);
-  const [data, setData] = useState<Data[]>([]);
+  const { data, isLoading } = useTopComics(type, page);
 
-  useEffect(() => {
-    async function fetchData() {
-      setLoading(true);
-      const { data, pagination } = await getTopComics(type, page);
-      setData(data);
-      setPagination(pagination);
-      setLoading(false);
-    }
-    fetchData();
-  }, [type, page]);
+  if (isLoading) {
+    return <CardSkeleton />;
+  }
+
+  if (!data) {
+    return <>No data available!</>;
+  }
+
+  const { data: comics, pagination } = data;
 
   return (
     <>
-      {loading ? <CardSkeleton /> : <CardGrid data={data} tag='anime' />}
+      <CardGrid data={comics} tag='anime' />
       {pagination && (
         <PaginationWithLinks
           page={pagination.current_page}

@@ -4,10 +4,8 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import type { Data } from '@/interfaces/comic.interface';
 import { Button } from '../button';
 
-// import { FetchSearchQuery } from '@/fetch/FetchSearchQuery';
 import { ChevronsRight, SearchIcon } from 'lucide-react';
 
 import {
@@ -22,27 +20,15 @@ import { HeaderMobile } from './HeaderMobile';
 import { ToggleTheme } from './ToggleTheme';
 import { useSearchUIStore } from '@/store/ui/ui-search-store';
 import { Loader } from '../loader/Loader';
-import { getSearch } from '@/services/search';
+import { useSearch } from '@/hooks/useSearch';
 
 export const Header = () => {
   const { isSearchOpen, openSearchMenu, closeSearchMenu } = useSearchUIStore();
   const [query, setQuery] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [results, setResults] = useState<Data[]>([]);
 
-  useEffect(() => {
-    if (!query.trim()) return setResults([]);
+  const { data, isLoading } = useSearch(query);
 
-    const fetchData = async () => {
-      setLoading(true);
-      const { data } = await getSearch(query);
-      setResults(data);
-      setLoading(false);
-    };
-
-    const debounce = setTimeout(fetchData, 500);
-    return () => clearTimeout(debounce);
-  }, [query]);
+  const results = data?.data || [];
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -101,7 +87,7 @@ export const Header = () => {
             </Link>
           )}
           <CommandList>
-            {loading ? (
+            {isLoading ? (
               <Loader />
             ) : results.length > 0 ? (
               results.map((item, index) => (

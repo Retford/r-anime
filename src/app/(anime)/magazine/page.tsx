@@ -1,7 +1,5 @@
-import { MagazineGrid } from '@/components/magazines/magazine-grid/MagazineGrid';
-import { PaginationWithLinks } from '@/components/ui/pagination-with-links/pagination-with-links';
-import { getMagazines } from '@/services/magazine';
 import { Metadata } from 'next';
+import { MagazineContent } from './ui/MagazineContent';
 
 interface Props {
   searchParams: Promise<{ page?: string }>;
@@ -16,16 +14,6 @@ export const metadata: Metadata = {
 export default async function MagazinePage({ searchParams }: Props) {
   const pages = (await searchParams).page;
   const page = pages ? parseInt(pages) : 1;
-  const { data, pagination } = await getMagazines(page);
 
-  return (
-    <div className='container m-auto'>
-      <MagazineGrid data={data} />
-      <PaginationWithLinks
-        page={pagination.current_page}
-        pageSize={pagination.items.per_page}
-        totalCount={pagination.items.total}
-      />
-    </div>
-  );
+  return <MagazineContent page={page} />;
 }
