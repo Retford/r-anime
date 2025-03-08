@@ -1,39 +1,31 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-
-import type { Data } from '@/interfaces/comic.interface';
-import type { Pagination } from '@/interfaces/common.interface';
-
 import { CardGrid } from '@/components/cards/card-grid/CardGrid';
 import { CardSkeleton } from '@/components/comics/skeleton/CardSkeleton';
 
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links/pagination-with-links';
-import { getMangas } from '@/services/manga';
+import { useMangas } from '@/hooks/useMangas';
 
 interface Props {
   page: number;
 }
 
 export const MangaContent = ({ page }: Props) => {
-  const [loading, setLoading] = useState(false);
-  const [pagination, setPagination] = useState<Pagination>();
-  const [data, setData] = useState<Data[]>([]);
+  const { data, isLoading } = useMangas(page);
 
-  useEffect(() => {
-    async function fetchData() {
-      setLoading(true);
-      const { data, pagination } = await getMangas(page);
-      setData(data);
-      setPagination(pagination);
-      setLoading(false);
-    }
-    fetchData();
-  }, [page]);
+  if (isLoading) {
+    return <CardSkeleton />;
+  }
+
+  if (!data) {
+    return <div>No data available</div>;
+  }
+
+  const { data: mangas, pagination } = data;
 
   return (
     <>
-      {loading ? <CardSkeleton /> : <CardGrid data={data} tag='manga' />}
+      <CardGrid data={mangas} tag='manga' />
       {pagination && (
         <PaginationWithLinks
           page={pagination.current_page}

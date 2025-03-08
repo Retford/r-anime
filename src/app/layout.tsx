@@ -4,6 +4,7 @@ import { ThemeProvider } from '@/store/theme/theme-provider';
 import { poppins } from '@/config/font';
 import { Header } from '@/components/ui/header/Header';
 import { Footer } from '@/components/ui/footer/Footer';
+import { TanStackProvider } from '@/store/tanstack-query/TanStackProvider';
 
 export const metadata: Metadata = {
   title: {
@@ -22,18 +23,20 @@ export default function RootLayout({
   return (
     <html lang='es' suppressHydrationWarning>
       <body className={`${poppins.className} antialiased`}>
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='dark'
-          enableSystem
-          disableTransitionOnChange
-        >
-          <div className='min-h-screen flex flex-col'>
-            <Header />
-            <main className='flex-1'>{children}</main>
-            <Footer />
-          </div>
-        </ThemeProvider>
+        <TanStackProvider>
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='dark'
+            enableSystem
+            disableTransitionOnChange
+          >
+            <div className='min-h-screen flex flex-col'>
+              <Header />
+              <main className='flex-1'>{children}</main>
+              <Footer />
+            </div>
+          </ThemeProvider>
+        </TanStackProvider>
       </body>
     </html>
   );

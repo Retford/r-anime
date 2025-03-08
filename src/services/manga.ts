@@ -7,7 +7,7 @@ import type { Recommendations } from '@/interfaces/recommendations.interface';
 export const getMangas = (page: number = 1) =>
   fetchData<Comics>('/manga', { page, limit: 24 });
 
-export const getMangaById = (id: string) =>
+export const getMangaById = (id: number) =>
   fetchData<ItemByIDResponse>(`/manga/${id}`);
 
 export const getRecommendationsManga = () =>

@@ -1,15 +1,7 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
 import { getMangaById } from '@/services/manga';
 import { Metadata } from 'next';
 
-import Image from 'next/image';
+import { MangaIdContent } from './ui/MangaIdContent';
 
 interface Props {
   params: Promise<{ mangaId: string }>;
@@ -18,7 +10,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { mangaId } = await params;
 
-  const { data } = await getMangaById(mangaId);
+  const { data } = await getMangaById(+mangaId);
 
   return {
     title: data.title,
@@ -34,31 +26,5 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function MangaById({ params }: Props) {
   const { mangaId } = await params;
 
-  const { data } = await getMangaById(mangaId);
-
-  console.log(data);
-
-  return (
-    <Card className='w-[350px]'>
-      <CardHeader>
-        <CardTitle>{data.title}</CardTitle>
-        <CardDescription className='line-clamp-5'>
-          {data.synopsis}
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Image
-          src={data.images.webp.image_url}
-          width={250}
-          height={250}
-          alt={data.title}
-        />
-      </CardContent>
-      <CardFooter className='flex justify-between'>
-        <span>{data.episodes}</span>
-        <span>{data.status}</span>
-        <p>{data.synopsis}</p>
-      </CardFooter>
-    </Card>
-  );
+  return <MangaIdContent mangaId={+mangaId} />;
 }
