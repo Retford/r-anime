@@ -1,14 +1,10 @@
 'use client';
 
+import { TrailerModal } from '@/components/animes/anime-id/modal/TrailerModal';
 import { CardSkeleton } from '@/components/comics/skeleton/CardSkeleton';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { titleFont } from '@/config/font';
+
 import { useAnime } from '@/hooks/useAnime';
 
 import Image from 'next/image';
@@ -20,33 +16,56 @@ interface Props {
 export const AnimeIdContent = ({ animeId }: Props) => {
   const { isLoading, data } = useAnime(animeId);
 
-  if (isLoading) return <CardSkeleton />;
-
   if (!data) return <p>No data available</p>;
 
   const { data: anime } = data;
 
+  console.log(anime);
+
   return (
-    <Card className='w-[350px]'>
-      <CardHeader>
-        <CardTitle>{anime.title}</CardTitle>
-        <CardDescription className='line-clamp-5'>
-          {anime.synopsis}
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Image
-          src={anime.images.webp.image_url}
-          width={250}
-          height={250}
-          alt={anime.title}
-        />
-      </CardContent>
-      <CardFooter className='flex justify-between'>
-        <span>{anime.episodes}</span>
-        <span>{anime.status}</span>
-        <p>{anime.synopsis}</p>
-      </CardFooter>
-    </Card>
+    <div>
+      <div className='grid grid-cols-12 grid-rows-7 gap-12 w-full'>
+        {isLoading && <CardSkeleton />}
+        <div className='flex items-center justify-center col-span-3 row-span-5 col-start-2 row-start-2'>
+          <Image
+            src={anime.images.webp.large_image_url}
+            alt={anime.title}
+            width={1500}
+            height={1100}
+            className='h-full object-contain'
+          />
+        </div>
+        <div className='col-span-7 row-span-5 col-start-5 row-start-2 flex flex-col gap-4 justify-center'>
+          <div className={`${titleFont.className} text-3xl flex items-center`}>
+            {anime.title}
+          </div>
+          <div className='flex items-center justify-center'>
+            {anime.synopsis}
+          </div>
+
+          <div className=''>
+            {anime.genres.map((genre) => (
+              <Badge key={genre.mal_id}>{genre.name}</Badge>
+            ))}
+          </div>
+          <div className='flex gap-2'>
+            <span>{anime.type}</span>
+            <span>{anime.episodes}</span>
+            <div className=''>{anime.duration}</div>
+            <div>{anime.rank}</div>
+            <div>{anime.favorites}</div>
+            <div>{anime.score}</div>
+          </div>
+          <div className='flex gap-2'>
+            <div>{anime.season}</div>
+            <div>{anime.status}</div>
+            <div>{anime.rating}</div>
+          </div>
+          <div>
+            <TrailerModal {...anime} />
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
