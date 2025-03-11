@@ -1,13 +1,16 @@
 'use client';
 
+import Link from 'next/link';
+import { useQueryClient } from '@tanstack/react-query';
+
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { formatApi } from '@/helpers/formatApi';
 import { Heart, Star } from 'lucide-react';
-import Link from 'next/link';
 
 import type { Data } from '@/interfaces/comic.interface';
 import type { ComicType } from '@/interfaces/api-types';
+import { getAnimeById } from '@/services/anime';
 
 interface Props {
   comic: Data;
@@ -16,8 +19,18 @@ interface Props {
 
 export const CardGridItem = ({ comic, tag }: Props) => {
   const rate = formatApi(comic.rating || '');
+
+  const queryClient = useQueryClient();
+  const prefetchAnime = () => {
+    queryClient.prefetchQuery({
+      queryKey: ['anime', { animeId: comic.mal_id }],
+      queryFn: () => getAnimeById(comic.mal_id),
+      staleTime: 1000 * 60 * 60,
+    });
+  };
+
   return (
-    <Link href={`/${tag}/${comic.mal_id}`}>
+    <Link href={`/${tag}/${comic.mal_id}`} onMouseEnter={prefetchAnime}>
       <Card
         className='relative overflow-hidden group bg-cover bg-center aspect-[11/16] sm:h-72 md:h-64 lg:h-[22rem] hover:transition-all hover:duration-500 hover:shadow-[0px_0px_15px_5px_rgba(251,_44,_54,_0.48)]'
         style={{ backgroundImage: `url(${comic.images.jpg.image_url})` }}
