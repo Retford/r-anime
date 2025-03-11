@@ -1,6 +1,5 @@
 import { DataEpisodes } from '@/interfaces/episodes';
 import { Episode } from './Episode';
-import { ChevronDown } from 'lucide-react';
 import { titleFont } from '@/config/font';
 
 interface Props {
@@ -35,19 +34,10 @@ export const EpisodeList = ({ episodes }: Props) => {
             </p>
           </div>
         ) : (
-          episodes.slice(0, 10).map((episode) => (
+          episodes.map((episode) => (
             <Episode key={episode.mal_id} episode={episode} />
           ))
         )}
-      </div>
-      <div className='flex justify-center mt-8'>
-        <button
-          // onClick={loadMore}
-          className='px-8 py-3 bg-white/10 hover:bg-white/20 rounded-full flex items-center gap-2 transition-colors'
-        >
-          <span className='font-medium'>CARGAR MÁS</span>
-          <ChevronDown className='h-5 w-5' />
-        </button>
       </div>
     </section>
   );
