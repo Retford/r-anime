@@ -20,7 +20,11 @@ interface Props {
 export const TrailerModal = ({ title, trailer }: Props) => {
   if (!trailer.youtube_id) {
     return (
-      <Button variant='watch' disabled>
+      <Button
+        variant='secondary'
+        disabled
+        className='w-full mt-4 md:w-1/2 lg:w-1/3 xl:w-auto 2xl:mt-0'
+      >
         There is no trailer
       </Button>
     );
@@ -29,7 +33,12 @@ export const TrailerModal = ({ title, trailer }: Props) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant='watch'>Watch Trailer</Button>
+        <Button
+          variant='watch'
+          className='w-full mt-4 md:w-1/2 lg:w-1/3 xl:w-auto 2xl:mt-0'
+        >
+          Watch Trailer
+        </Button>
       </DialogTrigger>
       <DialogContent className='max-w-80 sm:max-w-[580px] md:max-w-[700px] lg:max-w-[900px]'>
         <DialogHeader>
