@@ -1,0 +1,31 @@
+@reference 'tailwindcss';
+
+.spring {
+  @apply px-3 py-1 text-base font-bold uppercase text-pink-900 
+    bg-gradient-to-r from-pink-300 to-green-200 border-2 border-pink-400 
+    rounded-lg shadow-[0_0_15px_rgba(255,182,193,0.6)] 
+    transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(255,182,193,1)];
+}
+.winter {
+  @apply px-3 py-1 text-base font-bold uppercase text-blue-100 
+    bg-gradient-to-r from-blue-600 to-cyan-400 border-2 border-blue-300 
+    rounded-lg shadow-[0_0_15px_rgba(173,216,230,0.6)] 
+    transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(173,216,230,1)];
+}
+
+.fall {
+  @apply relative px-3 py-1 text-base font-bold uppercase text-yellow-100 
+  bg-gradient-to-r from-[#8B4513] via-[#D2691E] to-[#FF8C00] border border-[#FFA500] 
+  rounded-lg shadow-lg transition-all duration-300 ease-out overflow-hidden 
+  before:absolute before:inset-0 before:bg-[radial-gradient(circle,_rgba(255,165,0,0.3)_10%,_rgba(0,0,0,0)_60%)] 
+  before:opacity-0 hover:before:opacity-100 hover:scale-105 hover:shadow-orange-600/50;
+}
+
+.summer {
+  @apply relative px-3 py-1 text-base font-bold uppercase text-yellow-50 
+  bg-gradient-to-r from-[#FF4500] via-[#FF6347] to-[#FFD700] border border-[#FFD700] 
+  rounded-lg shadow-lg transition-all duration-300 ease-in-out overflow-hidden 
+  before:absolute before:inset-0 before:bg-[radial-gradient(circle,_rgba(255,215,0,0.4)_10%,_rgba(0,0,0,0)_60%)] 
+  before:opacity-0 before:scale-150 hover:before:opacity-100 hover:before:scale-100 
+  hover:shadow-yellow-400/50 hover:brightness-110;
+}

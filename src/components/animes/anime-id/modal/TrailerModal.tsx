@@ -1,3 +1,5 @@
+import LiteYouTubeEmbed from 'react-lite-youtube-embed';
+import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -6,25 +8,37 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { titleFont } from '@/config/font';
+
+import type { Trailer } from '@/interfaces/common.interface';
 
 interface Props {
   title: string;
+  trailer: Trailer;
 }
 
-export const TrailerModal = ({ title }: Props) => {
+export const TrailerModal = ({ title, trailer }: Props) => {
+  if (!trailer.youtube_id) {
+    return (
+      <Button variant='watch' disabled>
+        There is no trailer
+      </Button>
+    );
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant='anime' className='cursor-pointer'>
-          Watch Trailer
-        </Button>
+        <Button variant='watch'>Watch Trailer</Button>
       </DialogTrigger>
-      <DialogContent className='sm:max-w-[425px]'>
+      <DialogContent className='max-w-80 sm:max-w-[580px] md:max-w-[700px] lg:max-w-[900px]'>
         <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
+          <DialogTitle className={`${titleFont.className} text-center`}>
+            {title}
+          </DialogTitle>
         </DialogHeader>
         <div className='grid gap-4 py-4'>
-          <div className='grid grid-cols-4 items-center gap-4'>Video</div>
+          <LiteYouTubeEmbed id={trailer.youtube_id} title={title} />
         </div>
       </DialogContent>
     </Dialog>
