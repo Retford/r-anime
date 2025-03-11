@@ -22,7 +22,12 @@ const buttonVariants = cva(
         anime: 
         "bg-red-500 text-white shadow-xs hover:bg-red-500/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40",
         watch:
-        "relative px-6 py-3 text-lg font-bold tracking-wide text-white bg-gradient-to-r from-red-700 via-black to-red-700 rounded-lg shadow-lg border-2 border-transparent transition-all duration-300 ease-in-out hover:border-white hover:shadow-[0_0_15px_rgba(255,255,255,0.7)] hover:scale-105 before:content-[''] before:absolute before:inset-0 before:bg-white before:opacity-10 before:rounded-lg before:transition-opacity before:duration-500 before:hover:opacity-20 after:content-[''] after:absolute after:-inset-1 after:border-2 after:border-red-700 after:rounded-lg after:opacity-0 after:transition-opacity after:duration-500 hover:after:opacity-100 cursor-pointer"
+        "relative px-6 py-3 text-lg font-bold tracking-wide text-white bg-gradient-to-r from-red-700 via-black to-red-700 rounded-lg shadow-lg border-2 border-transparent transition-all duration-300 ease-in-out hover:border-white hover:shadow-[0_0_15px_rgba(255,255,255,0.7)] hover:scale-105 before:content-[''] before:absolute before:inset-0 before:bg-white before:opacity-10 before:rounded-lg before:transition-opacity before:duration-500 before:hover:opacity-20 after:content-[''] after:absolute after:-inset-1 after:border-2 after:border-red-700 after:rounded-lg after:opacity-0 after:transition-opacity after:duration-500 hover:after:opacity-100 cursor-pointer",
+        episode:
+        "relative py-3 px-6 font-semibold text-white uppercase tracking-wider rounded-lg bg-gradient-to-r from-red-600 to-red-800 shadow-[0_0_10px_rgba(255,0,0,0.6)] transition-all duration-300 ease-in-out hover:shadow-[0_0_20px_rgba(255,0,0,0.8)] hover:scale-105 active:scale-95 before:absolute before:inset-0 before:border-2 before:border-white before:rounded-lg before:opacity-30 before:transition-opacity before:duration-300 hover:before:opacity-50",
+        orange:
+        "relative py-3 px-6 text-white font-semibold rounded-lg bg-red-600 shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-red-500/50 before:absolute before:inset-0 before:border-2 before:border-white before:rounded-lg before:opacity-20 before:transition-opacity before:duration-300 hover:before:opacity-40 active:scale-95"
+
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",

@@ -40,7 +40,7 @@ export const Episode = ({ episode }: Props) => {
             <div className='sm:flex items-center gap-1 dark:bg-black/50 group-hover:border-red-500 border dark:border-none px-2 py-1 rounded hidden'>
               <Star className='h-3 w-3 text-amber-500 fill-amber-500' />
               <span className='text-sm font-medium'>
-                {episode.score.toFixed(2)}
+                {episode.score ? episode.score.toFixed(2) : '0.00'}
               </span>
             </div>
 

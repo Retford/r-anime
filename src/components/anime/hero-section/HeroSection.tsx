@@ -33,7 +33,7 @@ export const HeroSection = ({ anime }: Props) => {
   } = anime;
 
   return (
-    <div className='p-6 flex flex-col justify-center items-center lg:justify-start lg:grid lg:grid-cols-3 lg:gap-4 2xl:grid-cols-12 2xl:grid-rows-5 2xl:gap-12 w-full'>
+    <section className='p-6 flex flex-col justify-center items-center lg:justify-start lg:grid lg:grid-cols-3 lg:gap-4 2xl:grid-cols-12 2xl:grid-rows-5 2xl:gap-12 w-full'>
       <div className='m-3 flex items-center justify-center 2xl:col-span-3 2xl:row-span-5 2xl:col-start-2 2xl:row-start-1 relative'>
         {rank && (
           <Badge
@@ -114,6 +114,6 @@ export const HeroSection = ({ anime }: Props) => {
           {trailer && <TrailerModal title={title} trailer={trailer} />}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
