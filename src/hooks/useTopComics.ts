@@ -4,7 +4,7 @@ import { getTopComics } from '@/services/comics';
 
 export const useTopComics = (type: ComicType, page: number) => {
   const { data, isLoading } = useQuery({
-    queryKey: ['top', { type }],
+    queryKey: ['top', { type, page }],
     queryFn: () => getTopComics(type, page),
     staleTime: 1000 * 60 * 60,
   });

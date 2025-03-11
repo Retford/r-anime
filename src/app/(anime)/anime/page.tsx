@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 
-import { Hero } from '@/components/animes/ui/Hero';
+import { Hero } from '@/components/animes/hero/Hero';
 import { AnimeContent } from './ui/AnimeContent';
 
 export const metadata: Metadata = {
