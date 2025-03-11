@@ -29,3 +29,19 @@
   before:opacity-0 before:scale-150 hover:before:opacity-100 hover:before:scale-100 
   hover:shadow-yellow-400/50 hover:brightness-110;
 }
+
+.main__characters {
+  @apply px-4 py-1 text-white bg-gradient-to-r from-[#FF4500] via-[#FF6347] to-[#FFD700] 
+  border border-[#FFD700] rounded-md shadow-md 
+  before:absolute before:-top-1 before:-right-1 before:bg-white before:h-2 before:w-2 
+  before:rounded-full before:animate-ping 
+  hover:shadow-[0_0_15px_#FF6347] hover:scale-105 transition-all duration-300;
+}
+
+.supporting__characters {
+  @apply px-4 py-1 text-white bg-gradient-to-r from-[#2E8B57] via-[#3CB371] to-[#ADFF2F] 
+  border border-[#ADFF2F] rounded-md shadow-md 
+  before:absolute before:-top-1 before:-right-1 before:bg-white before:h-2 before:w-2 
+  before:rounded-full before:animate-ping 
+  hover:shadow-[0_0_15px_#3CB371] hover:scale-105 transition-all duration-300;
+}
