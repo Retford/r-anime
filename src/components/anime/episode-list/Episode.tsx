@@ -1,5 +1,5 @@
 import { formatDate } from '@/helpers/formatDate';
-import { DataEpisodes } from '@/interfaces/episodes';
+import { DataEpisodes } from '@/interfaces/episodes.interface';
 import { Play, Star } from 'lucide-react';
 
 interface Props {

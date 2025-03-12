@@ -13,12 +13,21 @@ import { EpisodeSkeleton } from '@/components/anime/skeleton/episode-skeleton/Ep
 import { CharacterSkeleton } from '@/components/anime/skeleton/character-skeleton/CharacterSkeleton';
 import { HeroSkeleton } from '@/components/anime/skeleton/hero-skeleton/HeroSkeleton';
 
+import type { DataAnimeRecommendationsById } from '@/interfaces/animeRecommendationsById.interface';
+import type { DataCharacters } from '@/interfaces/characters.interface';
+import { CardSkeleton } from '@/components/comics/skeleton/CardSkeleton';
+
 interface Props {
   animeId: number;
 }
 
 export const AnimeIdContent = ({ animeId }: Props) => {
-  const { animeByIdQuery, episodesQuery, charactersQuery } = useAnime(animeId);
+  const {
+    animeByIdQuery,
+    episodesQuery,
+    charactersQuery,
+    recommendationsByIdQuery,
+  } = useAnime(animeId);
 
   const showNumberEpisodes = 5;
   const showNumberCharacters = 18;
@@ -32,12 +41,26 @@ export const AnimeIdContent = ({ animeId }: Props) => {
   } = useShowMoreWithRequest(animeId, showNumberEpisodes);
 
   const {
-    allCharacters,
+    allItems: allCharacters,
     visible,
     handleLoadLess: handleLoadLessCharacter,
     handleLoadMore: handleLoadMoreCharacter,
     handleLoadReset: handleLoadResetCharacter,
-  } = useShowMore(animeId, showNumberCharacters);
+  } = useShowMore<DataCharacters>({
+    query: charactersQuery,
+    showNumber: showNumberCharacters,
+  });
+
+  const {
+    allItems: allRecommendations,
+    visible: visibleRecommendation,
+    // handleLoadLess: handleLoadLessRecommendation,
+    // handleLoadMore: handleLoadMoreRecommendation,
+    // handleLoadReset: handleLoadResetRecommendation,
+  } = useShowMore<DataAnimeRecommendationsById>({
+    query: recommendationsByIdQuery,
+    showNumber: showNumberCharacters,
+  });
 
   return (
     <div className='flex flex-col gap-8 xl:gap-16'>
@@ -115,6 +138,20 @@ export const AnimeIdContent = ({ animeId }: Props) => {
             />
           </div>
         )}
+
+        {recommendationsByIdQuery.isLoading && <CardSkeleton />}
+        <div className='flex flex-wrap'>
+          {allRecommendations
+            .slice(
+              visibleRecommendation - showNumberCharacters,
+              visibleRecommendation
+            )
+            .map((recommendation) => (
+              <div key={recommendation.entry.mal_id}>
+                {recommendation.entry.title}
+              </div>
+            ))}
+        </div>
       </section>
     </div>
   );

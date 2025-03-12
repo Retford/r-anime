@@ -1,4 +1,4 @@
-import { DataEpisodes } from '@/interfaces/episodes';
+import { DataEpisodes } from '@/interfaces/episodes.interface';
 import { Episode } from './Episode';
 import { titleFont } from '@/config/font';
 

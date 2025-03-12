@@ -1,6 +1,6 @@
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
-import { DataCharacters, Role } from '@/interfaces/characters';
+import { DataCharacters, Role } from '@/interfaces/characters.interface';
 import clsx from 'clsx';
 
 interface Props {

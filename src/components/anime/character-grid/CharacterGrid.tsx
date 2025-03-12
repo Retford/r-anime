@@ -1,4 +1,4 @@
-import { DataCharacters } from '@/interfaces/characters';
+import { DataCharacters } from '@/interfaces/characters.interface';
 import { CharacterGridItem } from './CharacterGridItem';
 import { titleFont } from '@/config/font';
 

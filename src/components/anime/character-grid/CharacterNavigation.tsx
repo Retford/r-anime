@@ -1,7 +1,7 @@
 import { ChevronLeft, ChevronRight, Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-import type { DataCharacters } from '@/interfaces/characters';
+import type { DataCharacters } from '@/interfaces/characters.interface';
 
 interface Props {
   visible: number;

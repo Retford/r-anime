@@ -1,18 +1,25 @@
 import { useEffect, useState } from 'react';
-import { useAnime } from './useAnime';
+import { UseQueryResult } from '@tanstack/react-query';
 
-export const useShowMore = (animeId: number, showNumber: number) => {
-  const [visible, setVisible] = useState(0);
+interface QueryData<T> {
+  data: T[];
+}
 
-  const { charactersQuery } = useAnime(animeId);
-  const allCharacters = charactersQuery.data?.data ?? [];
+interface Props<T> {
+  query: UseQueryResult<QueryData<T>, Error>;
+  showNumber: number;
+}
+
+export const useShowMore = <T>({ query, showNumber }: Props<T>) => {
+  const allItems = query.data?.data ?? [];
+  const [visible, setVisible] = useState(showNumber);
 
   useEffect(() => {
-    if (allCharacters.length > visible) setVisible((prev) => prev + showNumber);
-  }, [allCharacters.length]);
+    setVisible(showNumber);
+  }, [allItems.length, showNumber]);
 
   const handleLoadMore = async () => {
-    if (visible < allCharacters.length) {
+    if (visible < allItems.length) {
       setVisible((prev) => prev + showNumber);
     }
   };
@@ -25,7 +32,7 @@ export const useShowMore = (animeId: number, showNumber: number) => {
     setVisible(showNumber);
   };
   return {
-    allCharacters,
+    allItems,
     visible,
 
     handleLoadReset,

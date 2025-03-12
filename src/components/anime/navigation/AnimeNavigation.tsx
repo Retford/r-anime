@@ -1,7 +1,7 @@
 import { ChevronLeft, ChevronRight, Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { InfiniteData, UseInfiniteQueryResult } from '@tanstack/react-query';
-import { Episodes } from '@/interfaces/episodes';
+import { Episodes } from '@/interfaces/episodes.interface';
 import { cn } from '@/lib/utils';
 
 interface Props<T> {
