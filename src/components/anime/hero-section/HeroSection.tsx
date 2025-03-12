@@ -50,7 +50,6 @@ export const HeroSection = ({ anime }: Props) => {
           width={1500}
           height={1100}
           className='h-full object-cover rounded-lg shadow-lg'
-          // max-w-full h-auto rounded-lg shadow-lg
         />
       </div>
       <div className='lg:col-span-2 lg:justify-start 2xl:col-span-7 2xl:row-span-5 2xl:col-start-5 2xl:row-start-1 flex flex-col gap-3 2xl:gap-8 justify-center text-pretty my-4 lg:my-0'>

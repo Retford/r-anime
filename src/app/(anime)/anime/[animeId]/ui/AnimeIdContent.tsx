@@ -2,7 +2,6 @@
 
 import { useAnime } from '@/hooks/useAnime';
 
-import { Loader } from '@/components/ui/loader/Loader';
 import { HeroSection } from '@/components/anime/hero-section/HeroSection';
 import { EpisodeList } from '@/components/anime/episode-list/EpisodeList';
 
@@ -12,6 +11,7 @@ import { useShowMore } from '@/hooks/useShowMore';
 import { AnimeNavigation } from '@/components/anime/navigation/AnimeNavigation';
 import { EpisodeSkeleton } from '@/components/anime/skeleton/episode-skeleton/EpisodeSkeleton';
 import { CharacterSkeleton } from '@/components/anime/skeleton/character-skeleton/CharacterSkeleton';
+import { HeroSkeleton } from '@/components/anime/skeleton/hero-skeleton/HeroSkeleton';
 
 interface Props {
   animeId: number;
@@ -41,7 +41,7 @@ export const AnimeIdContent = ({ animeId }: Props) => {
 
   return (
     <div className='flex flex-col gap-8 xl:gap-16'>
-      {animeByIdQuery.isLoading && <Loader />}
+      {animeByIdQuery.isLoading && <HeroSkeleton />}
       {animeByIdQuery.data?.data && (
         <HeroSection anime={animeByIdQuery.data.data} />
       )}
