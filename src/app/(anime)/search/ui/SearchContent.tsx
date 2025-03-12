@@ -5,7 +5,7 @@ import { CardGrid } from '@/components/cards/card-grid/CardGrid';
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links/pagination-with-links';
 import { NoResultsFound } from '@/components/search/no-results-found/NoResultsFound';
 import { useSearch } from '@/hooks/useSearch';
-import { Loader } from '@/components/ui/loader/Loader';
+import { CardSkeleton } from '@/components/comics/skeleton/CardSkeleton';
 
 interface Props {
   page: number;
@@ -16,7 +16,7 @@ export const SearchContent = ({ page, query }: Props) => {
   const { data: comics } = useSearch(query, page);
 
   if (!comics) {
-    return <Loader />;
+    return <CardSkeleton />;
   }
 
   const { data, pagination } = comics;
