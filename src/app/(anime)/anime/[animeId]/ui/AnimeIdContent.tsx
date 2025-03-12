@@ -5,7 +5,6 @@ import { useAnime } from '@/hooks/useAnime';
 import { HeroSection } from '@/components/anime/hero-section/HeroSection';
 import { EpisodeList } from '@/components/anime/episode-list/EpisodeList';
 
-import { CharacterGrid } from '@/components/anime/character-grid/CharacterGrid';
 import { useShowMoreWithRequest } from '@/hooks/useShowMoreWithRequest';
 import { useShowMore } from '@/hooks/useShowMore';
 import { AnimeNavigation } from '@/components/anime/navigation/AnimeNavigation';
@@ -16,6 +15,8 @@ import { HeroSkeleton } from '@/components/anime/skeleton/hero-skeleton/HeroSkel
 import type { DataAnimeRecommendationsById } from '@/interfaces/animeRecommendationsById.interface';
 import type { DataCharacters } from '@/interfaces/characters.interface';
 import { CardSkeleton } from '@/components/comics/skeleton/CardSkeleton';
+import { SectionCardsGrid } from '@/components/share/section-cards/SectionCardsGrid';
+import { SectionTitle } from '@/components/share/section-cards/SectionTitle';
 
 interface Props {
   animeId: number;
@@ -54,9 +55,9 @@ export const AnimeIdContent = ({ animeId }: Props) => {
   const {
     allItems: allRecommendations,
     visible: visibleRecommendation,
-    // handleLoadLess: handleLoadLessRecommendation,
-    // handleLoadMore: handleLoadMoreRecommendation,
-    // handleLoadReset: handleLoadResetRecommendation,
+    handleLoadLess: handleLoadLessRecommendation,
+    handleLoadMore: handleLoadMoreRecommendation,
+    handleLoadReset: handleLoadResetRecommendation,
   } = useShowMore<DataAnimeRecommendationsById>({
     query: recommendationsByIdQuery,
     showNumber: showNumberCharacters,
@@ -68,8 +69,8 @@ export const AnimeIdContent = ({ animeId }: Props) => {
       {animeByIdQuery.data?.data && (
         <HeroSection anime={animeByIdQuery.data.data} />
       )}
-
       <section className='container m-auto pt-2 pb-12 p-6 flex flex-col gap-16'>
+        {/*  Episodes Section  */}
         {episodesQuery.isLoading && <EpisodeSkeleton />}
 
         {allEpisodes.length === 0 ? (
@@ -105,6 +106,8 @@ export const AnimeIdContent = ({ animeId }: Props) => {
           </div>
         )}
 
+        {/* Characters Section  */}
+
         {charactersQuery.isLoading && <CharacterSkeleton />}
 
         {allCharacters.length === 0 ? (
@@ -121,11 +124,18 @@ export const AnimeIdContent = ({ animeId }: Props) => {
           </>
         ) : (
           <div className='relative'>
-            <CharacterGrid
-              characters={allCharacters.slice(
+            <SectionCardsGrid
+              items={allCharacters.slice(
                 visible - showNumberCharacters,
                 visible
               )}
+              name='Characters'
+              getItemProps={(item) => ({
+                id: item.character.mal_id,
+                imageUrl: item.character.images.webp.image_url,
+                title: item.character.name,
+                badgeText: item.role,
+              })}
             />
             <AnimeNavigation
               visible={visible}
@@ -139,19 +149,52 @@ export const AnimeIdContent = ({ animeId }: Props) => {
           </div>
         )}
 
+        {/* Reviews Section  */}
+
+        <SectionTitle name='Reviews' />
+        {/* Fin Reviews Section */}
+
         {recommendationsByIdQuery.isLoading && <CardSkeleton />}
-        <div className='flex flex-wrap'>
-          {allRecommendations
-            .slice(
-              visibleRecommendation - showNumberCharacters,
-              visibleRecommendation
-            )
-            .map((recommendation) => (
-              <div key={recommendation.entry.mal_id}>
-                {recommendation.entry.title}
+
+        {/* Recommendation Section   */}
+        {allRecommendations.length === 0 ? (
+          <>
+            {recommendationsByIdQuery.isLoading ? (
+              ''
+            ) : (
+              <div className='text-center py-12 bg-black/30 border border-white/10 rounded-lg'>
+                <p className='text-white/60'>
+                  There are no recommendations for this anime yet.
+                </p>
               </div>
-            ))}
-        </div>
+            )}
+          </>
+        ) : (
+          <div className='relative'>
+            <SectionCardsGrid
+              items={allRecommendations.slice(
+                visibleRecommendation - showNumberCharacters,
+                visibleRecommendation
+              )}
+              name='Recommended anime like this'
+              getItemProps={(item) => ({
+                id: item.entry.mal_id,
+                imageUrl: item.entry.images.webp.image_url,
+                url: `/anime/${item.entry.mal_id}`,
+                title: item.entry.title,
+              })}
+            />
+            <AnimeNavigation
+              visible={visibleRecommendation}
+              items={allRecommendations}
+              limit={showNumberCharacters}
+              className='relative sm:absolute top-0 right-0'
+              handleLoadLess={handleLoadLessRecommendation}
+              handleLoadMore={handleLoadMoreRecommendation}
+              handleLoadReset={handleLoadResetRecommendation}
+            />
+          </div>
+        )}
       </section>
     </div>
   );
