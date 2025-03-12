@@ -26,17 +26,9 @@ export const EpisodeList = ({ episodes }: Props) => {
         </div>
       </div>
 
-      {episodes.length === 0 ? (
-        <div className='text-center py-12 bg-black/30 border border-white/10 rounded-lg'>
-          <p className='text-white/60'>
-            There are no episodes for this anime yet.
-          </p>
-        </div>
-      ) : (
-        episodes.map((episode) => (
-          <Episode key={episode.mal_id} episode={episode} />
-        ))
-      )}
+      {episodes.map((episode) => (
+        <Episode key={episode.mal_id} episode={episode} />
+      ))}
     </div>
   );
 };

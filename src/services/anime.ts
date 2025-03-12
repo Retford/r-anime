@@ -5,6 +5,7 @@ import type { ItemByIDResponse } from '@/interfaces/comicById.interface';
 import type { Episodes } from '@/interfaces/episodes';
 import type { Recommendations } from '@/interfaces/recommendations.interface';
 import type { Characters } from '@/interfaces/characters';
+// import { sleep } from '@/helpers/sleep';
 
 export const getAnimes = (page: number = 1) =>
   fetchData<Comics>('/anime', { page, limit: 24 });
