@@ -1,37 +1,32 @@
 import { useEffect, useState } from 'react';
 import { useAnime } from './useAnime';
 
-export const useShowMore = (animeId: number) => {
-  const [visibleEpisodes, setVisibleEpisodes] = useState(0);
+export const useShowMore = (animeId: number, showNumber: number) => {
+  const [visible, setVisible] = useState(0);
 
-  const { episodesQuery } = useAnime(animeId);
-  const allEpisodes =
-    episodesQuery.data?.pages.flatMap((page) => page.data) ?? [];
+  const { charactersQuery } = useAnime(animeId);
+  const allCharacters = charactersQuery.data?.data ?? [];
 
   useEffect(() => {
-    if (allEpisodes.length > visibleEpisodes)
-      setVisibleEpisodes((prev) => prev + 5);
-  }, [allEpisodes.length]);
+    if (allCharacters.length > visible) setVisible((prev) => prev + showNumber);
+  }, [allCharacters.length]);
 
   const handleLoadMore = async () => {
-    if (visibleEpisodes < allEpisodes.length) {
-      setVisibleEpisodes((prev) => prev + 5);
-    } else if (episodesQuery.hasNextPage) {
-      await episodesQuery.fetchNextPage();
-      setVisibleEpisodes((prev) => prev + 5);
+    if (visible < allCharacters.length) {
+      setVisible((prev) => prev + showNumber);
     }
   };
 
   const handleLoadLess = () => {
-    setVisibleEpisodes((prev) => Math.max(5, prev - 5));
+    setVisible((prev) => Math.max(showNumber, prev - showNumber));
   };
 
   const handleLoadReset = () => {
-    setVisibleEpisodes(5);
+    setVisible(showNumber);
   };
   return {
-    allEpisodes,
-    visibleEpisodes,
+    allCharacters,
+    visible,
 
     handleLoadReset,
     handleLoadMore,
