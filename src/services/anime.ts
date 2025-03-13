@@ -5,6 +5,7 @@ import type { ItemByIDResponse } from '@/interfaces/comicById.interface';
 import type { Episodes } from '@/interfaces/episodes.interface';
 import type { Characters } from '@/interfaces/characters.interface';
 import type { AnimeRecommendationsById } from '@/interfaces/animeRecommendationsById.interface';
+import type { AnimeReviews } from '@/interfaces/animeReviews.interface';
 // import { sleep } from '@/helpers/sleep';
 
 export const getAnimes = (page: number = 1) =>
@@ -21,3 +22,6 @@ export const getCharactersAnime = (animeId: number) =>
 
 export const getAnimeRecommendationsById = (animeId: number) =>
   fetchData<AnimeRecommendationsById>(`/anime/${animeId}/recommendations`);
+
+export const getAnimeReviews = (animeId: number, page: number = 1) =>
+  fetchData<AnimeReviews>(`/anime/${animeId}/reviews`, { page });

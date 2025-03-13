@@ -13,7 +13,7 @@ interface Props<T> {
   };
 }
 
-export const SectionCardsGrid = <T,>({
+export const SectionCardGrid = <T,>({
   items,
   name,
   getItemProps,

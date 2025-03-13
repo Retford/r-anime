@@ -2,6 +2,7 @@ import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import {
   getAnimeById,
   getAnimeRecommendationsById,
+  getAnimeReviews,
   getCharactersAnime,
   getEpisodes,
 } from '../services/anime';
@@ -36,10 +37,17 @@ export const useAnime = (animeId: number) => {
     staleTime: 1000 * 60 * 60,
   });
 
+  const animeReviewQuery = useQuery({
+    queryKey: ['anime', { animeId }, 'reviews'],
+    queryFn: () => getAnimeReviews(animeId),
+    staleTime: 24 * 60 * 60,
+  });
+
   return {
     animeByIdQuery,
     episodesQuery,
     charactersQuery,
     recommendationsByIdQuery,
+    animeReviewQuery,
   };
 };
