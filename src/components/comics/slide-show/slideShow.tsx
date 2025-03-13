@@ -73,7 +73,11 @@ export default function SlideShow() {
       fadeEffect={{ crossFade: true }}
       speed={800}
       grabCursor
-      autoplay={{ delay: 5000, disableOnInteraction: false }}
+      autoplay={{
+        delay: 2500,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      }}
       loop={true}
       className='w-full h-96 lg:h-[600px]'
     >

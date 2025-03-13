@@ -16,10 +16,8 @@ import type { DataAnimeRecommendationsById } from '@/interfaces/animeRecommendat
 import type { DataCharacters } from '@/interfaces/characters.interface';
 import { CardSkeleton } from '@/components/comics/skeleton/CardSkeleton';
 import { SectionCardGrid } from '@/components/share/section-cards/SectionCardGrid';
-import { SectionTitle } from '@/components/share/section-cards/SectionTitle';
 import { SectionReviews } from '@/components/share/section-reviews/SectionReviews';
 import { Loader } from '@/components/ui/loader/Loader';
-// import { SectionReviews } from '@/components/share/section-reviews/SectionReviews';
 
 interface Props {
   animeId: number;
@@ -155,20 +153,29 @@ export const AnimeIdContent = ({ animeId }: Props) => {
 
         {/* Reviews Section  */}
 
-        <SectionTitle name='Reviews' />
-
         {animeReviewQuery.isLoading && <Loader />}
 
-        {animeReviewQuery.data?.data && (
-          <SectionReviews reviews={animeReviewQuery.data.data} />
+        {animeReviewQuery.data?.data.length === 0 ? (
+          <>
+            {animeReviewQuery.isLoading ? (
+              ''
+            ) : (
+              <div className='text-center py-12 bg-black/30 border border-white/10 rounded-lg'>
+                <p className='text-white/60'>
+                  There are no reviews for this anime yet.
+                </p>
+              </div>
+            )}
+          </>
+        ) : (
+          <>
+            {animeReviewQuery.data?.data && (
+              <SectionReviews reviews={animeReviewQuery.data.data} />
+            )}
+          </>
         )}
-        {/* 
-        {animeReviewQuery.data?.data.map((review) => (
-          <SectionReviews key={review.mal_id} reviews={review} />
-        ))} */}
 
         {/* <SectionReviews /> */}
-        {/* Fin Reviews Section */}
 
         {recommendationsByIdQuery.isLoading && <CardSkeleton />}
 
@@ -192,7 +199,7 @@ export const AnimeIdContent = ({ animeId }: Props) => {
                 visibleRecommendation - showNumberCharacters,
                 visibleRecommendation
               )}
-              name='Recommended anime like this'
+              name='Similar animes'
               getItemProps={(item) => ({
                 id: item.entry.mal_id,
                 imageUrl: item.entry.images.webp.image_url,

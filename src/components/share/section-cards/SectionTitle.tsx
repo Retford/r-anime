@@ -2,8 +2,9 @@ import { titleFont } from '@/config/font';
 
 interface Props {
   name: string;
+  quantity: number;
 }
-export const SectionTitle = ({ name }: Props) => {
+export const SectionTitle = ({ name, quantity }: Props) => {
   return (
     <div className='relative mb-8'>
       <div className='absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-red-500 to-orange-500'></div>
@@ -16,7 +17,7 @@ export const SectionTitle = ({ name }: Props) => {
             <span className='text-red-500'>.</span>
           </h2>
           <p className='dark:text-white/60 text-sm md:text-base'>
-            20 {name.toLowerCase()}
+            {quantity} {name.toLowerCase()}
           </p>
         </div>
       </div>
