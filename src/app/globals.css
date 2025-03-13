@@ -124,5 +124,5 @@
 }
 
 .swiper-pagination-bullet {
-  @apply !bg-red-500 opacity-50;
+  @apply !bg-red-500 opacity-50 !w-7 !h-2 !rounded-xs;
 }

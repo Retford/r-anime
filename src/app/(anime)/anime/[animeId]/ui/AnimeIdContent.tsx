@@ -15,8 +15,11 @@ import { HeroSkeleton } from '@/components/anime/skeleton/hero-skeleton/HeroSkel
 import type { DataAnimeRecommendationsById } from '@/interfaces/animeRecommendationsById.interface';
 import type { DataCharacters } from '@/interfaces/characters.interface';
 import { CardSkeleton } from '@/components/comics/skeleton/CardSkeleton';
-import { SectionCardsGrid } from '@/components/share/section-cards/SectionCardsGrid';
+import { SectionCardGrid } from '@/components/share/section-cards/SectionCardGrid';
 import { SectionTitle } from '@/components/share/section-cards/SectionTitle';
+import { SectionReviews } from '@/components/share/section-reviews/SectionReviews';
+import { Loader } from '@/components/ui/loader/Loader';
+// import { SectionReviews } from '@/components/share/section-reviews/SectionReviews';
 
 interface Props {
   animeId: number;
@@ -28,6 +31,7 @@ export const AnimeIdContent = ({ animeId }: Props) => {
     episodesQuery,
     charactersQuery,
     recommendationsByIdQuery,
+    animeReviewQuery,
   } = useAnime(animeId);
 
   const showNumberEpisodes = 5;
@@ -124,7 +128,7 @@ export const AnimeIdContent = ({ animeId }: Props) => {
           </>
         ) : (
           <div className='relative'>
-            <SectionCardsGrid
+            <SectionCardGrid
               items={allCharacters.slice(
                 visible - showNumberCharacters,
                 visible
@@ -152,6 +156,18 @@ export const AnimeIdContent = ({ animeId }: Props) => {
         {/* Reviews Section  */}
 
         <SectionTitle name='Reviews' />
+
+        {animeReviewQuery.isLoading && <Loader />}
+
+        {animeReviewQuery.data?.data && (
+          <SectionReviews reviews={animeReviewQuery.data.data} />
+        )}
+        {/* 
+        {animeReviewQuery.data?.data.map((review) => (
+          <SectionReviews key={review.mal_id} reviews={review} />
+        ))} */}
+
+        {/* <SectionReviews /> */}
         {/* Fin Reviews Section */}
 
         {recommendationsByIdQuery.isLoading && <CardSkeleton />}
@@ -171,7 +187,7 @@ export const AnimeIdContent = ({ animeId }: Props) => {
           </>
         ) : (
           <div className='relative'>
-            <SectionCardsGrid
+            <SectionCardGrid
               items={allRecommendations.slice(
                 visibleRecommendation - showNumberCharacters,
                 visibleRecommendation
