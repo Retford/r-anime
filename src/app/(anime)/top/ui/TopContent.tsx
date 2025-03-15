@@ -28,7 +28,7 @@ export const TopContent = ({ page, type }: Props) => {
 
   return (
     <>
-      <CardGrid data={comics} tag='anime' />
+      <CardGrid data={comics} tag={type} />
       {pagination && (
         <PaginationWithLinks
           page={pagination.current_page}

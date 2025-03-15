@@ -1,5 +1,6 @@
 'use client';
 
+import { SectionCardGrid } from '@/components/share/section-cards/SectionCardGrid';
 import { Loader } from '@/components/ui/loader/Loader';
 import { useSeasonNow } from '@/hooks/useSeasonNow';
 import { useSeasonsList } from '@/hooks/useSeasonsList';
@@ -20,9 +21,19 @@ export const HomeContent = () => {
   console.log({ season });
 
   return (
-    <div>
+    <div className='container m-auto'>
       HomeContent
       {isLoadingList && <Loader />}
+      <SectionCardGrid
+        name='Season'
+        items={seasonNow.data}
+        getItemProps={(item) => ({
+          id: item.mal_id,
+          imageUrl: item.images.webp.image_url,
+          title: item.title,
+          url: `/anime/${item.mal_id}`,
+        })}
+      />
       {isLoadingNow && <Loader />}
     </div>
   );

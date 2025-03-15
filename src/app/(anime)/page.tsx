@@ -1,17 +1,18 @@
-// import { HomeContent } from './ui/HomeContent';
+import { HomeContent } from './ui/HomeContent';
 
 export default function Home() {
   return (
-    <div>
-      <h1>Anime</h1>
-
-      {/* <HomeContent /> */}
-
-      <div className='flex min-h-screen flex-col items-center justify-center p-0 sm:p-4 overflow-hidden'>
-        <div className='w-full max-w-[1400px] mx-auto'>
-          {/* <SectionReviews /> */}
-        </div>
-      </div>
+    <div
+      className='object-contain'
+      style={{
+        backgroundImage:
+          'url(https://assets-prd.ignimgs.com/2022/08/17/17-kakashi-1660778366362.jpg)',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: '100% 100%',
+        backgroundPosition: 'center center',
+      }}
+    >
+      <HomeContent />
     </div>
   );
 }
