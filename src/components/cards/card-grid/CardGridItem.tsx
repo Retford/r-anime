@@ -36,7 +36,7 @@ export const CardGridItem = ({ comic, tag }: Props) => {
         style={{ backgroundImage: `url(${comic.images.jpg.image_url})` }}
       >
         {comic.episodes && (
-          <Badge variant='personality' className='absolute top-3 left-3 z-10'>
+          <Badge variant='personality' className='absolute top-3 left-3 z-[1]'>
             Eps&#32;{comic.episodes}
           </Badge>
         )}
