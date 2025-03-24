@@ -9,6 +9,7 @@ import {
   SheetTrigger,
 } from '../sheet';
 import { Menu } from 'lucide-react';
+import { headerLinks } from './headerLinks';
 
 export const HeaderMobile = () => {
   return (
@@ -23,31 +24,15 @@ export const HeaderMobile = () => {
           <SheetTitle>
             <nav>
               <ul>
-                <li>
-                  <SheetClose asChild>
-                    <Link href='/anime'>Anime</Link>
-                  </SheetClose>
-                </li>
-                <li>
-                  <SheetClose asChild>
-                    <Link href='/top?type=anime'>Top Anime</Link>
-                  </SheetClose>
-                </li>
-                <li>
-                  <SheetClose asChild>
-                    <Link href='manga'>Manga</Link>
-                  </SheetClose>
-                </li>
-                <li>
-                  <SheetClose asChild>
-                    <Link href='manga'>Top Manga</Link>
-                  </SheetClose>
-                </li>
-                <li>
-                  <SheetClose asChild>
-                    <Link href='magazine'>Magazine</Link>
-                  </SheetClose>
-                </li>
+                {headerLinks.map((headerMobileLink) => (
+                  <li key={headerMobileLink.id}>
+                    <SheetClose asChild>
+                      <Link href={headerMobileLink.href}>
+                        {headerMobileLink.name}
+                      </Link>
+                    </SheetClose>
+                  </li>
+                ))}
               </ul>
             </nav>
           </SheetTitle>
